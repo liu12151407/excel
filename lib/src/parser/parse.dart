@@ -316,11 +316,12 @@ class Parser {
 
       document.findAllElements('numFmts').forEach((node1) {
         node1.findAllElements('numFmt').forEach((node) {
-          final numFmtId = int.parse(node.getAttribute('numFmtId')!);
+          var numFmtId = int.parse(node.getAttribute('numFmtId')!);
           final formatCode = node.getAttribute('formatCode')!;
           if (numFmtId < 164) {
-            throw Exception(
-                'custom numFmtId starts at 164 but found a value of $numFmtId');
+            // throw Exception(
+            //     'custom numFmtId starts at 164 but found a value of $numFmtId');
+            numFmtId += 164;
           }
 
           _excel._numFormats
@@ -842,8 +843,8 @@ class Parser {
 
     /* parse custom column height
       example XML content
-      <col min="2" max="2" width="71.83203125" customWidth="1"/>, 
-      <col min="4" max="4" width="26.5" customWidth="1"/>, 
+      <col min="2" max="2" width="71.83203125" customWidth="1"/>,
+      <col min="4" max="4" width="26.5" customWidth="1"/>,
       <col min="6" max="6" width="31.33203125" customWidth="1"/>
     */
     results = worksheet.findAllElements("col");
